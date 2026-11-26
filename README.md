@@ -8,10 +8,10 @@
 
 | Area | State |
 |---|---|
-| Backend, workflow, dashboard, evaluation harness | Implemented and tested: more than 1,300 automated tests passed on the author's Windows machine (last full run 2026-11-22; one known third-party deprecation warning). |
+| Backend, workflow, dashboard, evaluation harness | Implemented and tested: more than 1,300 automated tests passed on the author's Windows machine (last full run 2026-11-25; one known third-party deprecation warning). |
 | Read-only demo in Docker | Built and run by the author with `docker compose`: API healthy, seeded data served (3 datasets, 12 findings, 2 example reviews), uploads refused with HTTP 403. The image also carries a committed snapshot of the real-model evaluation run. |
 | Real-model evaluation | **Run once** (2026-11-19), a single, non-reproducible run of `gemini-3.5-flash-lite`: accuracy 0.794 (50 of 63 columns), 60 of 63 columns answered (0.833 over the answered ones). **Not distinguishable** from the keyword mock (0.698) on this small, same-author dataset. See [docs/EVALUATION.md](docs/EVALUATION.md). |
-| Public deployment | **None.** [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) explains how a read-only demo could be deployed; it has not been done. |
+| Public deployment | **Deployed on 2026-11-26** to Render's free plan as a **read-only** demo of synthetic data (uploads, scans and reviews are disabled): dashboard <https://veritygrid-ui.onrender.com>, API documentation <https://veritygrid-api.onrender.com/docs>. Built from commit `014506f`. Free services sleep after 15 minutes without traffic and need about a minute to wake; open the API's `/health` first. Availability is not guaranteed. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). |
 | Authentication | **None.** Uploads and reviews are open in development mode and disabled in demo mode. |
 
 ## What it does
@@ -220,7 +220,12 @@ The labels, the detectors and the mock were written by the same author on a smal
 
 ## Deployment
 
-Not deployed. [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) describes running the read-only demo locally with Docker and how it could be deployed to Render, including which steps need an account, external configuration or a paid plan. A public deployment with uploads or reviews is **not recommended** until real access control exists.
+The read-only demo was deployed to Render's free plan on 2026-11-26 (two Docker web services built from commit `014506f`):
+
+- Dashboard: <https://veritygrid-ui.onrender.com>
+- API documentation: <https://veritygrid-api.onrender.com/docs>
+
+Open the API's `/health` first and wait for it to answer: free services sleep after 15 minutes without traffic and need about a minute to wake, and a dashboard opened first can show "API unreachable" until the API is awake. The deployed demo serves the same synthetic data as the Docker demo (3 datasets, 12 findings), refuses every upload, scan and review with HTTP 403 `read_only_mode`, and holds no API key. Availability is not guaranteed. [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) records what was done, what needed an account or external configuration, and what a free plan limits. A public deployment with uploads or reviews is **not recommended** until real access control exists.
 
 ## Project layout
 
@@ -240,7 +245,7 @@ data/sample/    three synthetic CSV files
 data/evaluation/ committed snapshot of the real-model evaluation run
 tests/          automated tests
 docs/           architecture, threat model, evaluation, deployment
-Dockerfile.api, Dockerfile.ui, docker-compose.yml, render.yaml, .env.example, SECURITY.md
+Dockerfile.api, Dockerfile.ui, docker-compose.yml, render.yaml, .env.example, SECURITY.md, LICENSE
 ```
 
 ## Documentation
@@ -249,4 +254,4 @@ Dockerfile.api, Dockerfile.ui, docker-compose.yml, render.yaml, .env.example, SE
 
 ## License
 
-No license has been chosen yet.
+[MIT](LICENSE). The sample data is synthetic. The project depends on third-party packages that have their own licences.

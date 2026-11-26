@@ -15,7 +15,7 @@ VerityGrid is an independent enterprise-AI portfolio prototype. It demonstrates 
 - It uses completely synthetic foodservice-distribution data (customers, orders, inventory and similar).
 - It is a prototype: it suggests, records and prioritizes. It never deletes records or changes real permissions.
 - It is built to be explainable in a technical interview, so readability is preferred over cleverness.
-- It has **no authentication**. A public deployment is limited to a read-only demo of synthetic data (section 9). It has not been deployed anywhere.
+- It has **no authentication**. The public deployment is a read-only demo of synthetic data (section 9), deployed to Render's free plan on 2026-11-26 (see section 11).
 - Nothing in this project is a security certification or a compliance claim.
 
 **Out of scope:** React, Kubernetes, vector databases, RAG, message brokers, multiple autonomous agents, external data connectors, real customer data, user accounts and roles, and background job queues.
@@ -198,9 +198,9 @@ Phases ran in order and each started only on the developer's instruction. The nu
 | 10A | Security and reliability review: read-only demo mode, upload byte counting, startup checks, hostile-input tests, `SECURITY.md` | Completed |
 | 10B | Portfolio packaging: README, architecture and threat model, evaluation account, Docker, Compose, Render Blueprint, deployment guide, documentation tests | Completed |
 | 12 | Follow-up work: fail-fast demo startup and the `DEBUG` guard, a linear-time email pattern, detection rules over HTTP and in the dashboard, a demo seeded with sample rules and a real-model snapshot, documentation synchronisation and this specification | Completed except the final verification pass |
-| 13 | Platform deployment | **Not started.** Instructions and a Blueprint exist; nothing has been deployed |
+| 13 | A read-only demo deployed to Render's free plan on 2026-11-26: two Docker web services built from commit `014506f` of a private GitHub repository; the dashboard needed its API address set by hand (`VERITYGRID_API_URL`) and a redeploy | Completed. The author checked the public API, the 403 on writes and the dashboard; no load test, uptime history or memory measurement |
 
-Git has not been initialised (as of the last report), and no licence has been chosen.
+Git was initialised on 2026-11-26 and the first commit (`014506f`) was pushed to a private GitHub repository the same day. The project carries an MIT licence (`LICENSE`).
 
 ---
 
@@ -232,7 +232,7 @@ Git has not been initialised (as of the last report), and no licence has been ch
 - Scans run synchronously inside the request; there is no job queue.
 - SQLite is the only tested database. PostgreSQL compatibility is a design goal and is untested; concurrent reviews are not serialised there.
 - Free-text fields (column names, dataset names, comments) are stored as typed and can contain sensitive strings.
-- The project has been run on Windows and, for the read-only demo, in a Linux container. It has not been deployed to a platform.
+- The project has been run on Windows, in a Linux container and, as a read-only demo, on Render's free plan. The free services sleep after 15 minutes without traffic and need about a minute to wake; availability is not guaranteed, and the running demo stays on the commit it was deployed from until it is deployed again.
 - No dependency vulnerability scan or penetration test has been run.
 - Authorship assumption: the developer reviews and understands all generated code.
 
@@ -253,7 +253,7 @@ Git has not been initialised (as of the last report), and no licence has been ch
 | One real model provider as an optional late phase | The Gemini adapter was built with the AI layer, and one paced real-model evaluation run was completed |
 | Pages in a dashboard pages folder | Views in `ui/views/`, called from one entry point |
 | Labelled data in data/evaluation | The labelled dataset is code (`app/evaluation/dataset.py`); `data/evaluation/` holds only the committed real-model snapshot |
-| Evaluation as Phase 11; Docker, documentation and hardening as Phase 12; an access-controlled or read-only demo as Phase 13 | Evaluation is Phase 9; security review is Phase 10A; packaging and documentation are Phase 10B; a read-only demo was chosen and packaged, and nothing has been deployed |
+| Evaluation as Phase 11; Docker, documentation and hardening as Phase 12; an access-controlled or read-only demo as Phase 13 | Evaluation is Phase 9; security review is Phase 10A; packaging and documentation are Phase 10B; a read-only demo was chosen, packaged and deployed to Render (Phase 13) |
 | Tests with HTTPX | Tests use FastAPI's test client |
 | An initial pytest configuration file | Not created; tests run with `python -m pytest` |
 | Detection rules configured by an unspecified mechanism | An optional `rules` field on `POST /scans` and a rules box in the dashboard |

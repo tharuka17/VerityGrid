@@ -1,6 +1,28 @@
-# Deployment
+> **VerityGrid's read-only demo was deployed to Render's free plan on 2026-11-26** (see [What was done](#what-was-done-2026-11-26)). Only the read-only demo of synthetic data is deployed: uploads, scans and reviews are disabled. A public deployment with uploads or reviews is **not recommended**, because no access control exists.
 
-> **VerityGrid has not been deployed anywhere.** This document says how to run the read-only demo on your own machine and how it could be deployed to Render. Nothing below has been done by the author unless a result is reported in the project's status file.
+## What was done (2026-11-26)
+
+The read-only demo was deployed to Render's free plan on 2026-11-26. This section is the record; the sections after it explain how to repeat it.
+
+| Item | Value |
+|---|---|
+| Source | A GitHub repository that was **private** when deployed, branch `main`, commit `014506f` (Render shows this commit on both services) |
+| Services | Two Docker web services created from `render.yaml`: `veritygrid-api` and `veritygrid-ui`, both on the Free plan, with `autoDeploy` off |
+| Dashboard | <https://veritygrid-ui.onrender.com> |
+| API | <https://veritygrid-api.onrender.com> (interactive documentation at `/docs`) |
+| Configuration | The Blueprint sets the demo mode, the production environment label, the mock provider and the seeded database; it sets no secret and no API key |
+
+**What the author observed on 2026-11-26** (terminal output and screenshots):
+
+- The API's `/health` answered `{"status":"ok","app":"VerityGrid","environment":"production"}`.
+- `/metrics/summary` returned 3 datasets, 3 completed scans and 12 findings (medium 8, high 4), with 10 pending, 1 approved and 1 rejected (16.67% reviewed): the same numbers as the Docker demo.
+- `POST /scans` returned HTTP 403 with code `read_only_mode`, and the API log showed `Write request rejected in read-only mode: method=POST`.
+- The dashboard's sidebar showed **API reachable** with `VerityGrid (production)`, and its Overview showed 12 findings. The author also checked the Evaluation page and the blue read-only message on *Upload and scan* and *Review queue*.
+- The API log showed health checks answered `200 OK` every five seconds. Neither service's log showed an out-of-memory message in the stretches the author inspected. The dashboard's log showed two clean stop-and-restart cycles whose cause was not established (redeploys and idle recycling are the likely explanation). Memory use was not measured.
+
+**The first problem, and its fix.** After the first deploy the dashboard showed "API unreachable" with `API: http://api:8000` in its sidebar. That address is the default in `Dockerfile.ui`, which works only inside Docker Compose, where a service is named `api`. Render does not provide it, and `VERITYGRID_API_URL` is marked `sync: false` in `render.yaml`, so it has to be entered by hand with the API's **public** address (free services cannot use Render's private network). The fix was to set `VERITYGRID_API_URL` to `https://veritygrid-api.onrender.com` on the dashboard service and deploy it again, because a service receives a changed environment variable only on a new deploy. The dashboard connected after that.
+
+**What this does not show.** No load testing, no uptime history and no memory measurement. Both services stay on commit `014506f` until they are deployed again, so this repository can be newer than the running demo. The two addresses are public, so anyone with the link can open the demo. Free services can be changed or removed by the platform, so availability is not guaranteed.
 
 ## 1. What can be deployed
 

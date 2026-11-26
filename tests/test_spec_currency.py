@@ -27,7 +27,8 @@ HEADINGS = [
 PATHISH = re.compile(r"^[A-Za-z0-9_.\-/]+$")
 SUFFIXES = (".py", ".md", ".yml", ".yaml", ".csv", ".json", ".txt", ".example", ".toml", ".ini")
 GENERATED_PREFIXES = ("reports", "veritygrid", ".venv")
-DEPLOYMENT_CLAIMS = ("is deployed", "deployed at", "live demo", "hosted at", "try it live")
+NOT_DEPLOYED_PHRASES = ("has not been deployed", "not been deployed", "nothing has been deployed", "**not started.**")
+OVERSTATEMENTS = ("guaranteed uptime", "always available", "highly available", "99.9")
 
 
 def spec() -> str:
@@ -78,20 +79,26 @@ def test_the_top_level_folders_are_in_the_layout() -> None:
         assert f"`{name}" in text, name
 
 
-def test_the_phase_table_covers_the_security_and_packaging_phases() -> None:
+def test_the_phase_table_covers_the_security_packaging_and_deployment_phases() -> None:
     text = spec()
 
     for row in ("| 10A |", "| 10B |", "| 13 |"):
         assert row in text, row
-    assert "**Not started.**" in text
+    phase_13 = next(line for line in text.splitlines() if line.startswith("| 13 |"))
+    assert "Completed" in phase_13 and "Render" in phase_13
 
 
-def test_nothing_claims_a_deployment_happened() -> None:
-    text = spec().lower()
+def test_the_deployment_is_recorded_without_overstating_it() -> None:
+    text = spec()
+    lowered = text.lower()
 
-    for phrase in DEPLOYMENT_CLAIMS:
-        assert phrase not in text, phrase
-    assert "has not been deployed" in text
+    assert "2026-11-26" in text and "014506f" in text
+    assert "Render" in text and "read-only" in lowered
+    assert "availability is not guaranteed" in lowered
+    for phrase in OVERSTATEMENTS:
+        assert phrase not in lowered, phrase
+    for phrase in NOT_DEPLOYED_PHRASES:
+        assert phrase not in lowered, f"the specification still says '{phrase}'"
 
 
 def test_the_specification_states_the_access_model() -> None:
@@ -115,3 +122,10 @@ def test_every_orm_model_is_named() -> None:
     for name in ("Dataset", "ColumnProfile", "ScanRun", "Finding", "ReviewDecision", "AuditEvent"):
         assert hasattr(models, name), name
         assert f"**{name}**" in text, name
+        
+def test_git_and_the_licence_are_recorded() -> None:
+    text = spec()
+
+    assert "first commit" in text and "MIT licence" in text
+    assert "Git has not been initialised" not in text
+    assert (ROOT / "LICENSE").is_file()

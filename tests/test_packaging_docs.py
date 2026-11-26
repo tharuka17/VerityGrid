@@ -21,7 +21,7 @@ MARKDOWN_FILES = [
     "docs/EVALUATION.md",
     "docs/DEPLOYMENT.md",
 ]
-ALL_FILES = [".env.example", ".dockerignore", *CONFIG_FILES, *MARKDOWN_FILES]
+ALL_FILES = [".env.example", ".dockerignore", "LICENSE", *CONFIG_FILES, *MARKDOWN_FILES]
 LAYOUT = [
     "app/api",
     "app/ai",
@@ -47,7 +47,18 @@ SECRET_PATTERNS = [
     re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
     re.compile(r"(?i)\b(?:api[_-]?key|secret|token|password)\b\s*[:=]\s*['\"]?[A-Za-z0-9_\-]{16,}"),
 ]
-DEPLOYMENT_CLAIMS = ("is deployed", "deployed at", "live demo", "hosted at", "try it live")
+DEPLOYED_ON = "2026-11-26"
+DEPLOYED_COMMIT = "014506f"
+UI_ADDRESS = "https://veritygrid-ui.onrender.com"
+API_ADDRESS = "https://veritygrid-api.onrender.com"
+NOT_DEPLOYED_PHRASES = (
+    "has not been deployed",
+    "not deployed",
+    "nothing has been deployed",
+    "no deployment has been performed",
+    "no cloud deployment",
+)
+OVERSTATEMENTS = ("guaranteed uptime", "always available", "highly available", "24/7", "99.9")
 HTTP_METHODS = {"get", "post", "put", "patch", "delete", "head", "options"}
 
 
@@ -313,14 +324,55 @@ def test_no_secret_patterns_in_any_deliverable(name: str) -> None:
         assert not pattern.search(text), f"{name} matches a secret pattern: {pattern.pattern}"
 
 
-def test_nothing_claims_a_deployment_happened() -> None:
+def test_the_deployment_is_recorded_with_its_evidence() -> None:
+    readme, guide = read("README.md"), read("docs/DEPLOYMENT.md")
+
+    for name, text in (("README.md", readme), ("docs/DEPLOYMENT.md", guide)):
+        for fact in (UI_ADDRESS, API_ADDRESS, DEPLOYED_ON, DEPLOYED_COMMIT):
+            assert fact in text, f"{name} does not state {fact}"
+    assert "private" in guide.lower()
+
+
+def test_the_deployment_is_described_as_read_only() -> None:
+    for name in ("README.md", "docs/DEPLOYMENT.md"):
+        text = read(name).lower()
+        assert "read-only" in text and "read_only_mode" in text, name
+
+
+def test_the_free_plan_behaviour_is_stated() -> None:
+    for name in ("README.md", "docs/DEPLOYMENT.md"):
+        text = read(name)
+        assert "about a minute" in text and "/health" in text, name
+
+
+def test_availability_is_not_overstated() -> None:
     for name in [*MARKDOWN_FILES, "render.yaml"]:
         text = read(name).lower()
-        for phrase in DEPLOYMENT_CLAIMS:
+        for phrase in OVERSTATEMENTS:
             assert phrase not in text, f"{name} contains '{phrase}'"
+    assert "availability is not guaranteed" in read("README.md").lower()
 
-    assert "has not been deployed anywhere" in read("docs/DEPLOYMENT.md").lower()
-    assert "not deployed" in read("README.md").lower()
+
+def test_the_first_deployment_problem_is_recorded() -> None:
+    guide = read("docs/DEPLOYMENT.md")
+
+    assert "VERITYGRID_API_URL" in guide and "http://api:8000" in guide
+
+
+def test_no_document_still_says_it_is_not_deployed() -> None:
+    for name in MARKDOWN_FILES:
+        text = read(name).lower()
+        for phrase in NOT_DEPLOYED_PHRASES:
+            assert phrase not in text, f"{name} still says '{phrase}'"
+
+
+def test_the_licence_is_mit_and_linked() -> None:
+    licence = read("LICENSE")
+
+    assert licence.startswith("MIT License")
+    assert "Copyright (c) 2026" in licence
+    assert "[MIT](LICENSE)" in read("README.md")
+    assert "no license has been chosen" not in read("README.md").lower()
 
 
 def test_public_writes_are_not_recommended() -> None:
