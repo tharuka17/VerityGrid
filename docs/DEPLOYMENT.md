@@ -7,7 +7,7 @@ The read-only demo was deployed to Render's free plan on 2026-11-26. This sectio
 | Item | Value |
 |---|---|
 | Source | A GitHub repository that was **private** when deployed, branch `main`, commit `014506f` (Render shows this commit on both services) |
-| Services | Two Docker web services created from `render.yaml`: `veritygrid-api` and `veritygrid-ui`, both on the Free plan, with `autoDeploy` off |
+| Services | Two Docker web services created from `render.yaml`: `veritygrid-api` and `veritygrid-ui`, both on the Free plan; deployed by hand at first (`autoDeploy` off), then configured to deploy automatically on a push that changes a file in their image (`autoDeployTrigger: commit` with a build filter per service, set on 2026-11-26) |
 | Dashboard | <https://veritygrid-ui.onrender.com> |
 | API | <https://veritygrid-api.onrender.com> (interactive documentation at `/docs`) |
 | Configuration | The Blueprint sets the demo mode, the production environment label, the mock provider and the seeded database; it sets no secret and no API key |
@@ -22,7 +22,7 @@ The read-only demo was deployed to Render's free plan on 2026-11-26. This sectio
 
 **The first problem, and its fix.** After the first deploy the dashboard showed "API unreachable" with `API: http://api:8000` in its sidebar. That address is the default in `Dockerfile.ui`, which works only inside Docker Compose, where a service is named `api`. Render does not provide it, and `VERITYGRID_API_URL` is marked `sync: false` in `render.yaml`, so it has to be entered by hand with the API's **public** address (free services cannot use Render's private network). The fix was to set `VERITYGRID_API_URL` to `https://veritygrid-api.onrender.com` on the dashboard service and deploy it again, because a service receives a changed environment variable only on a new deploy. The dashboard connected after that.
 
-**What this does not show.** No load testing, no uptime history and no memory measurement. Both services stay on commit `014506f` until they are deployed again, so this repository can be newer than the running demo. The two addresses are public, so anyone with the link can open the demo. Free services can be changed or removed by the platform, so availability is not guaranteed.
+**What this does not show.** No load testing, no uptime history and no memory measurement. Until automatic deploys were configured (2026-11-26, after the first deployment) both services stayed on commit `014506f` until deployed by hand. Since then a push to `main` redeploys a service only if it changes a file that goes into that service's image, so a documents-only commit leaves the running demo unchanged. The two addresses are public, so anyone with the link can open the demo. Free services can be changed or removed by the platform, so availability is not guaranteed.
 
 ## 1. What can be deployed
 
@@ -70,7 +70,7 @@ You do **not** need a Gemini key, a database service or a persistent disk. The s
 4. Wait for both builds. Each build installs the dependencies, seeds the database and generates the report.
 5. If the API's real address differs from what you entered, open the UI service's **Environment** settings, correct `VERITYGRID_API_URL` and let it redeploy.
 
-`autoDeploy` is off, so a push does not deploy anything until you ask.
+`render.yaml` sets `autoDeployTrigger: commit` with a build filter per service, so after the first deployment a push to `main` deploys a service when it changes a file that goes into that service's image (documents and tests do not). To deploy by hand, use **Manual Deploy** on the service. Change this behaviour in `render.yaml`, not in the dashboard: the services are Blueprint-managed, and the next Blueprint sync overwrites dashboard changes.
 
 ### Verify after deploying (and tell the author what you see)
 

@@ -1,7 +1,10 @@
 # Render Blueprint for the VerityGrid READ-ONLY demo (synthetic data only).
-# NOT DEPLOYED by the author. See docs/DEPLOYMENT.md before using it.
+# Deployed to Render's free plan on 2026-11-26 (see docs/DEPLOYMENT.md).
 # - Both services are free Docker web services and contain no secrets and no API key.
-# - autoDeploy is off: nothing deploys until you trigger it in the Render dashboard.
+# - autoDeployTrigger: commit deploys a service when a push to the linked branch changes a file that goes into
+#   its image (buildFilter). Documents, tests and the other service's files do not trigger a deploy. Changes to
+#   this file are applied by a Blueprint sync. Do not change these settings in the Render dashboard: the next
+#   Blueprint sync would overwrite them.
 # - Do not change VERITYGRID_MODE to development: a public deployment must stay read-only
 #   (development mode is refused anyway while ENVIRONMENT is production).
 services:
@@ -12,7 +15,16 @@ services:
     dockerfilePath: ./Dockerfile.api
     dockerContext: .
     healthCheckPath: /health
-    autoDeploy: false
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - Dockerfile.api
+        - .dockerignore
+        - requirements.txt
+        - app/**
+        - scripts/**
+        - data/sample/**
+        - data/evaluation/**
     envVars:
       - key: VERITYGRID_MODE
         value: demo
@@ -30,9 +42,15 @@ services:
     dockerfilePath: ./Dockerfile.ui
     dockerContext: .
     healthCheckPath: /_stcore/health
-    autoDeploy: false
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - Dockerfile.ui
+        - .dockerignore
+        - requirements.txt
+        - ui/**
     envVars:
-      # The API's PUBLIC address (free services cannot use the private network). Enter it when Render asks,
-      # for example https://veritygrid-api.onrender.com, and correct it later if Render added a suffix.
+      # The API's PUBLIC address (free services cannot use the private network). It was entered by hand in the
+      # Render dashboard; a Blueprint sync keeps an existing value for a sync: false variable.
       - key: VERITYGRID_API_URL
         sync: false

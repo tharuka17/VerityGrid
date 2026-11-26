@@ -11,7 +11,7 @@
 | Backend, workflow, dashboard, evaluation harness | Implemented and tested: more than 1,300 automated tests passed on the author's Windows machine (last full run 2026-11-25; one known third-party deprecation warning). |
 | Read-only demo in Docker | Built and run by the author with `docker compose`: API healthy, seeded data served (3 datasets, 12 findings, 2 example reviews), uploads refused with HTTP 403. The image also carries a committed snapshot of the real-model evaluation run. |
 | Real-model evaluation | **Run once** (2026-11-19), a single, non-reproducible run of `gemini-3.5-flash-lite`: accuracy 0.794 (50 of 63 columns), 60 of 63 columns answered (0.833 over the answered ones). **Not distinguishable** from the keyword mock (0.698) on this small, same-author dataset. See [docs/EVALUATION.md](docs/EVALUATION.md). |
-| Public deployment | **Deployed on 2026-11-26** to Render's free plan as a **read-only** demo of synthetic data (uploads, scans and reviews are disabled): dashboard <https://veritygrid-ui.onrender.com>, API documentation <https://veritygrid-api.onrender.com/docs>. Built from commit `014506f`. Free services sleep after 15 minutes without traffic and need about a minute to wake; open the API's `/health` first. Availability is not guaranteed. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). |
+| Public deployment | **Deployed on 2026-11-26** to Render's free plan as a **read-only** demo of synthetic data (uploads, scans and reviews are disabled): dashboard <https://veritygrid-ui.onrender.com>, API documentation <https://veritygrid-api.onrender.com/docs>. First deployed from commit `014506f`; `render.yaml` now sets each service to deploy automatically when a push to `main` changes a file that goes into its image (documents and tests do not trigger a deploy). Free services sleep after 15 minutes without traffic and need about a minute to wake; open the API's `/health` first. Availability is not guaranteed. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). |
 | Authentication | **None.** Uploads and reviews are open in development mode and disabled in demo mode. |
 
 ## What it does
@@ -220,7 +220,7 @@ The labels, the detectors and the mock were written by the same author on a smal
 
 ## Deployment
 
-The read-only demo was deployed to Render's free plan on 2026-11-26 (two Docker web services built from commit `014506f`):
+The read-only demo was deployed to Render's free plan on 2026-11-26 (two Docker web services, first deployed from commit `014506f`; `render.yaml` now deploys each one automatically when a push to `main` changes a file that goes into its image):
 
 - Dashboard: <https://veritygrid-ui.onrender.com>
 - API documentation: <https://veritygrid-api.onrender.com/docs>

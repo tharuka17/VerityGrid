@@ -198,7 +198,7 @@ Phases ran in order and each started only on the developer's instruction. The nu
 | 10A | Security and reliability review: read-only demo mode, upload byte counting, startup checks, hostile-input tests, `SECURITY.md` | Completed |
 | 10B | Portfolio packaging: README, architecture and threat model, evaluation account, Docker, Compose, Render Blueprint, deployment guide, documentation tests | Completed |
 | 12 | Follow-up work: fail-fast demo startup and the `DEBUG` guard, a linear-time email pattern, detection rules over HTTP and in the dashboard, a demo seeded with sample rules and a real-model snapshot, documentation synchronisation and this specification | Completed except the final verification pass |
-| 13 | A read-only demo deployed to Render's free plan on 2026-11-26: two Docker web services built from commit `014506f` of a private GitHub repository; the dashboard needed its API address set by hand (`VERITYGRID_API_URL`) and a redeploy | Completed. The author checked the public API, the 403 on writes and the dashboard; no load test, uptime history or memory measurement |
+| 13 | A read-only demo deployed to Render's free plan on 2026-11-26: two Docker web services, first deployed from commit `014506f` of a GitHub repository (private when deployed) and configured afterwards to deploy automatically when a push to `main` changes a file in their image; the dashboard needed its API address set by hand (`VERITYGRID_API_URL`) and a redeploy | Completed. The author checked the public API, the 403 on writes and the dashboard; no load test, uptime history or memory measurement |
 
 Git was initialised on 2026-11-26 and the first commit (`014506f`) was pushed to a private GitHub repository the same day. The project carries an MIT licence (`LICENSE`).
 
@@ -232,7 +232,7 @@ Git was initialised on 2026-11-26 and the first commit (`014506f`) was pushed to
 - Scans run synchronously inside the request; there is no job queue.
 - SQLite is the only tested database. PostgreSQL compatibility is a design goal and is untested; concurrent reviews are not serialised there.
 - Free-text fields (column names, dataset names, comments) are stored as typed and can contain sensitive strings.
-- The project has been run on Windows, in a Linux container and, as a read-only demo, on Render's free plan. The free services sleep after 15 minutes without traffic and need about a minute to wake; availability is not guaranteed, and the running demo stays on the commit it was deployed from until it is deployed again.
+- The project has been run on Windows, in a Linux container and, as a read-only demo, on Render's free plan. The free services sleep after 15 minutes without traffic and need about a minute to wake; availability is not guaranteed. Both services are configured to deploy automatically when a push to `main` changes a file that goes into their image; documents and tests do not trigger a deploy, so the running demo can lag behind a documents-only commit.
 - No dependency vulnerability scan or penetration test has been run.
 - Authorship assumption: the developer reviews and understands all generated code.
 

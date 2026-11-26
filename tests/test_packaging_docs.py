@@ -267,7 +267,8 @@ def test_render_blueprint_structure() -> None:
     for service in services.values():
         assert service["type"] == "web" and service["runtime"] == "docker"
         assert service["plan"] == "free"
-        assert service["autoDeploy"] is False
+        assert service["autoDeployTrigger"] == "commit"
+        assert "autoDeploy" not in service  # the deprecated field; autoDeployTrigger replaces it
         assert (ROOT / service["dockerfilePath"]).is_file()
         for variable in service["envVars"]:
             assert not any(word in variable["key"].upper() for word in SECRET_WORDS), variable["key"]
@@ -509,3 +510,24 @@ def test_gitignore_excludes_env_files() -> None:
     lines = {line.strip() for line in path.read_text(encoding="utf-8-sig").splitlines()}
 
     assert lines & {".env", "/.env", ".env*", "*.env"}, ".gitignore does not exclude .env"
+    
+def test_each_buildfilter_covers_what_its_image_copies() -> None:
+    yaml = pytest.importorskip("yaml")
+    services = {service["name"]: service for service in yaml.safe_load(read("render.yaml"))["services"]}
+
+    for name in ("veritygrid-api", "veritygrid-ui"):
+        service = services[name]
+        paths = service["buildFilter"]["paths"]
+        dockerfile = service["dockerfilePath"].removeprefix("./")
+        copied: set[str] = set()
+        for line in active_lines(dockerfile):
+            if line.startswith("COPY "):
+                parts = [part for part in line.split()[1:] if not part.startswith("--")]
+                copied.update(parts[:-1])
+
+        assert dockerfile in paths and ".dockerignore" in paths, name
+        for source in copied:
+            assert source in paths or f"{source}/**" in paths, f"{name}: {source} is copied into the image but is not in buildFilter.paths"
+        for pattern in paths:
+            assert (ROOT / pattern.split("/**")[0]).exists(), f"{name}: buildFilter path {pattern} does not exist"
+            assert not pattern.startswith(("docs", "tests", "README", "SECURITY", "PROJECT_SPEC")), f"{name}: {pattern} should not trigger a deploy"

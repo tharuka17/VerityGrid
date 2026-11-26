@@ -118,3 +118,12 @@ def test_every_test_file_named_in_the_security_notes_exists() -> None:
     
 def test_the_architecture_shows_the_rules_step() -> None:
     assert "optional rules" in read("docs/ARCHITECTURE.md")
+    
+def test_the_documents_describe_automatic_deploys() -> None:
+    guide = read("docs/DEPLOYMENT.md")
+
+    assert "autoDeployTrigger" in guide and "build filter" in guide.lower()
+    for name in ("README.md", "PROJECT_SPEC.md", "docs/DEPLOYMENT.md"):
+        assert "automatically" in read(name).lower(), name
+    for name in DOCS:
+        assert "`autoDeploy` is off" not in read(name), name
