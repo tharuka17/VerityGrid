@@ -1,0 +1,48 @@
+# VerityGrid API: the READ-ONLY demo image (synthetic data only).
+# Build:  docker build -f Dockerfile.api -t veritygrid-api .
+# The image seeds its own demo database and generates its own evaluation report at build time.
+# It contains no secrets: .env is excluded by .dockerignore and no key is ever copied or set here.
+FROM python:3.14-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_ROOT_USER_ACTION=ignore
+
+RUN useradd --create-home --uid 10001 verity
+WORKDIR /app
+RUN chown verity:verity /app
+
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+
+COPY --chown=verity:verity app ./app
+COPY --chown=verity:verity scripts ./scripts
+COPY --chown=verity:verity data/sample ./data/sample
+COPY --chown=verity:verity data/evaluation ./data/evaluation
+
+# Safe defaults. They are set before the seed step so the seed and the server use the same database file.
+# VERITYGRID_MODE=development is refused while ENVIRONMENT=production (see SECURITY.md).
+ENV DATABASE_URL=sqlite:///./veritygrid_demo.db \
+    VERITYGRID_MODE=demo \
+    ENVIRONMENT=production \
+    AI_PROVIDER=mock
+
+USER verity
+
+# The seed and the harness make no provider calls. The harness runs as a build-time self-check in a scratch
+# folder (the build log shows its fingerprints). The evaluation report the API serves is the committed snapshot
+# of the one real-model run (2026-11-19); a test checks that its deterministic and mock results still match the code.
+RUN python -m scripts.seed_demo \
+    && python -m app.evaluation.harness --skip-review --output-dir /tmp/fresh_report \
+    && mkdir -p reports \
+    && cp data/evaluation/llm_run_2026-11-19.json reports/evaluation_report.json
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
+    CMD python -c "import os, urllib.request; urllib.request.urlopen('http://127.0.0.1:' + os.environ.get('PORT', '8000') + '/health', timeout=3)"
+
+# PORT is set by some platforms (Render); 8000 otherwise. exec makes uvicorn PID 1 so it receives stop signals.
+CMD ["sh", "-c", "exec uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

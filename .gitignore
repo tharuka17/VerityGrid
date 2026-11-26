@@ -1,0 +1,57 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python caches and build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Test and tooling artifacts
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.ruff_cache/
+.mypy_cache/
+
+# Environment files and secrets (the template is kept)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary uploads and scratch space
+uploads/
+data/uploads/
+tmp/
+temp/
+
+# Logs
+*.log
+logs/
+
+# Editor and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Generated evaluation reports (reproducible; the committed real-model snapshot is data/evaluation/)
+reports/
+
+# Local copies and scratch files
+*.bak
+*.orig
+*.rej
+rules.json

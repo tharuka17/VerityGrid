@@ -1,0 +1,27 @@
+# Never send secrets, local databases, generated reports or tooling to the build.
+.env
+.env.*
+*.db
+*.sqlite
+*.sqlite3
+reports/
+
+# Environments and caches
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Version control and editors
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Not needed inside the images
+tests/
+docs/
+*.md

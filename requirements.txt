@@ -1,0 +1,32 @@
+# VerityGrid — dependencies
+# Python 3.11 or later. Later phases add their own dependencies when they begin.
+
+# --- Application ---
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.30,<1.0
+pydantic-settings>=2.4,<3.0
+python-multipart>=0.0.18,<1.0  # multipart/form-data parsing for CSV uploads (Phase 5C)
+
+# --- Database (Phase 2) ---
+sqlalchemy>=2.0,<3.0
+
+# --- Data processing (Phase 3) ---
+pandas>=2.3.3,<4.0
+
+# --- Optional real LLM provider (Phase 6B) ---
+# Only imported when AI_PROVIDER=gemini; the mock provider and the tests do not need it or a key.
+# Pinned below 2.0 because only the 1.x generateContent surface was verified.
+google-genai>=1.51,<2.0
+
+# --- Workflow orchestration (Phase 7) ---
+langgraph>=1.0,<2.0
+
+# --- Dashboard (Phase 8) ---
+# 1.56 is the first release noted as compatible with Python 3.14 annotation handling.
+streamlit>=1.56,<2.0
+requests>=2.32,<3.0  # the dashboard talks to the API over HTTP
+
+# --- Testing ---
+pytest>=8.0,<10.0
+httpx>=0.27,<1.0
+httpx2>=2.4,<3.0  # used by starlette.testclient (replaces the deprecated httpx path)

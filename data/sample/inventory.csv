@@ -1,0 +1,18 @@
+sku,product_name,category,unit_of_measure,quantity_on_hand,reorder_point,unit_cost,warehouse,last_counted_date,supplier_contact_email
+SKU-1001,Roma Tomatoes 25lb Case,Produce,case,120,40,28.50,PDX-1,2026-09-15,sales@freshfields.example.com
+SKU-1002,Yellow Onions 50lb Sack,Produce,sack,85,30,19.75,PDX-1,2026-09-15,sales@freshfields.example.com
+SKU-1003,Frozen French Fries 6x5lb,Frozen,case,200,60,34.20,PDX-2,2026-09-14,orders@coldchainfoods.example.net
+SKU-1004,Whole Milk 4x1gal,Dairy,case,64,24,21.60,PDX-2,2026-09-16,dispatch@valleydairy.example.org
+SKU-1005,Cheddar Block 10lb,dairy,each,45,15,41.00,PDX-2,2026-09-16,dispatch@valleydairy.example.org
+SKU-1006,All Purpose Flour 50lb,Dry Goods,sack,150,50,22.40,SEA-1,2026-09-12,hello@millhouse.example.com
+SKU-1007,Canola Oil 35lb Jug,Dry Goods,jug,-12,20,38.90,SEA-1,2026-09-12,hello@millhouse.example.com
+SKU-1008,Chicken Breast 40lb Case,Protein,case,76,30,,SEA-2,2026-09-17,orders@prairiepoultry.example.net
+SKU-1009,Atlantic Salmon Fillet 10lb,Protein,case,18,TBD,96.00,SEA-2,2026-09-17,orders@bluewater.example.net
+SKU-1010,Paper Napkins 3000ct,Disposables,case,300,100,27.15,PDX-1,2026-09-10,
+SKU-1011,Nitrile Gloves Large 1000ct,Disposables,case,90,35,45.80,PDX-1,2026-09-10,support@safehands.example.org
+SKU-1012,Dish Detergent 5gal,Janitorial,pail,40,15,52.30,SEA-1,2026-02-30,support@safehands.example.org
+SKU-1013,Brown Rice 25lb,Dry Goods,bag,110,40,17.95,SEA-1,2026-09-12,hello@millhouse.example.com
+SKU-1014,Mozzarella Shredded 5lb,Dairy,case,70,25,36.10,PDX-2,2026-09-16,dispatch@valleydairy.example.org
+SKU-1003,Frozen French Fries 6x5lb,Frozen,case,200,60,34.20,PDX-2,2026-09-14,orders@coldchainfoods.example.net
+SKU-1015,Romaine Hearts 24ct,Produce,case,55,20,23.80,PDX-1,,sales@freshfields.example.com
+SKU-1016,Vanilla Ice Cream 3gal,Frozen,tub,28,10,31.75,PDX-2,2026-09-14,orders@coldchainfoods.example.net

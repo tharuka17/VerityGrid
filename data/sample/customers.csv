@@ -1,0 +1,22 @@
+customer_id,company_name,contact_name,email,phone,city,state,customer_since,credit_limit,account_status
+C001,Harbor Light Bistro,Maria Alvarez,orders@harborlight.example.com,503-555-0101,Portland,OR,2019-03-14,25000,active
+C002,Maple Street Diner,Tom Becker,tom.becker@maplestreet.example.com,(503) 555-0102,Salem,OR,2018-07-02,15000,active
+C003,Cascade Catering Co,Priya Nair,accounts@cascadecatering.example.net,+1 206 555 0103,Seattle,WA,2020-11-20,40000,active
+C004,Riverbend Grill,Daniel Okafor,,206-555-0104,Tacoma,WA,2021-01-09,12000,active
+C005,Summit Sandwich Shop,Elena Petrova,elena@summitsandwich.example.org,2065550105,Spokane,WA,2017-05-30,8000,ACTIVE
+C006,Juniper Cafe,Sam Whitfield,sam.whitfield@juniper-cafe,509-555-0106,Boise,ID,2022-02-17,10000,active
+C007,Lakeside Pizzeria,Rosa Delgado,rosa@lakesidepizza.example.com,,Eugene,OR,2016-09-25,30000,inactive
+C008,Northgate Bakery,Henry Liu,henry.liu@northgatebakery.example.net,541-555-0108,Bend,OR,2023-04-11,-500,active
+C009,Old Mill Tavern,Grace Mbeki,grace@oldmill.example.org,541-555-0109,Medford,OR,2015-12-01,22000,active
+C010,Pine Ridge Resort Kitchen,Omar Haddad,kitchen@pineridge.example.com,208-555-0110,Sun Valley,ID,2019-08-19,,active
+C011,Sunrise Breakfast House,Linda Park,linda.park@sunrisebreakfast.example.com,360-555-0111,Olympia,WA,2023-13-45,9000,active
+C012,Tidewater Seafood,Marcus Reed,marcus@tidewaterseafood.example.net,360-555-0112,Astoria,OR,2020-06-06,35000,suspended
+C013,Urban Fork Eatery,Aisha Khan,aisha.khan@urbanfork.example.org,971-555-0113,Portland,OR,2021-10-10,18000,active
+C014,Valley View School Cafeteria,Peter Novak,pnovak@valleyview.example.com,503-555-0114,Hillsboro,OR,2014-08-15,50000,active
+C015,Westside Noodle Bar,Mei Chen,mei@westsidenoodle.example.com,971-555-0115,Beaverton,OR,2022-09-09,14000,Active
+C016,Yellowstone Lodge Dining,Jack Turner,jack.turner@yellowstonelodge.example.net,406-555-0116,Bozeman,MT,2018-03-03,45000,active
+C017,Zephyr Food Truck,Nina Rossi,,,Eugene,OR,2024-01-22,5000,pending
+C003,Cascade Catering Co,Priya Nair,accounts@cascadecatering.example.net,+1 206 555 0103,Seattle,WA,2020-11-20,40000,active
+C018,Birch Hill Senior Living,Walter Grant,w.grant@birchhill.example.org,503-555-0118,Gresham,OR,2017-04-04,60000,active
+C019,Copper Kettle Cafe,Ana Souza,ana.souza@copperkettle.example.com,509-555-0119,Yakima,WA,2025-02-28,7500,active
+C020,Dockside Fish House,Ben Carter,ben@docksidefish.example.net,360-555-0120,Bellingham,WA,2019-07-07,28000,active

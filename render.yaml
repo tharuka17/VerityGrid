@@ -1,0 +1,38 @@
+# Render Blueprint for the VerityGrid READ-ONLY demo (synthetic data only).
+# NOT DEPLOYED by the author. See docs/DEPLOYMENT.md before using it.
+# - Both services are free Docker web services and contain no secrets and no API key.
+# - autoDeploy is off: nothing deploys until you trigger it in the Render dashboard.
+# - Do not change VERITYGRID_MODE to development: a public deployment must stay read-only
+#   (development mode is refused anyway while ENVIRONMENT is production).
+services:
+  - type: web
+    name: veritygrid-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile.api
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: false
+    envVars:
+      - key: VERITYGRID_MODE
+        value: demo
+      - key: ENVIRONMENT
+        value: production
+      - key: AI_PROVIDER
+        value: mock
+      - key: DATABASE_URL
+        value: sqlite:///./veritygrid_demo.db
+
+  - type: web
+    name: veritygrid-ui
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile.ui
+    dockerContext: .
+    healthCheckPath: /_stcore/health
+    autoDeploy: false
+    envVars:
+      # The API's PUBLIC address (free services cannot use the private network). Enter it when Render asks,
+      # for example https://veritygrid-api.onrender.com, and correct it later if Render added a suffix.
+      - key: VERITYGRID_API_URL
+        sync: false

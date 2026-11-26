@@ -1,0 +1,41 @@
+# VerityGrid read-only demo: API + dashboard on your own machine.
+#   docker compose up --build
+# API on http://127.0.0.1:8000 and dashboard on http://127.0.0.1:8501 (both bound to this machine only).
+# The data is synthetic and baked into the image; uploads, scans and reviews are disabled (see SECURITY.md).
+# No .env file is read by the containers and no secret is passed.
+name: veritygrid
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: veritygrid-api
+    environment:
+      VERITYGRID_MODE: demo
+      ENVIRONMENT: production
+      AI_PROVIDER: mock
+      DATABASE_URL: sqlite:///./veritygrid_demo.db
+    ports:
+      - "127.0.0.1:8000:8000"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.ui
+    image: veritygrid-ui
+    environment:
+      VERITYGRID_API_URL: http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8501:8501"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true

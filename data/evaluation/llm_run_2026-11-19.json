@@ -1,0 +1,1273 @@
+{
+  "dataset": {
+    "annotation_guidelines": {
+      "detections": "missing_values: 25% or more of the values are missing. potential_email and potential_phone: at least one value is an email address or a North American-style or international phone number. numeric_rule_violation and invalid_date: only for columns that have a configured rule, and only when a value breaks it. duplicate_rows: two rows are identical in every column.",
+      "financial": "Money amounts, prices, credit limits, balances or payment data.",
+      "internal": "Operational or business data meant for internal use (ids, codes, quantities, internal dates, status flags).",
+      "personal": "Values identify, describe or allow contacting a specific individual (names, emails, phone numbers, handles).",
+      "public": "Information intended for public disclosure (product catalogue names, public URLs, opening hours, published business contact lines).",
+      "unknown": "A deliberately opaque column: no meaningful name and no meaningful content."
+    },
+    "cases": 13,
+    "cases_by_tag": {
+      "known_limitation": 1,
+      "near_miss": 4,
+      "standard": 8
+    },
+    "columns": 63,
+    "dataset_level_units": 13,
+    "detection_positives": {
+      "duplicate_rows": 2,
+      "invalid_date": 2,
+      "missing_values": 5,
+      "numeric_rule_violation": 2,
+      "potential_email": 4,
+      "potential_phone": 5
+    },
+    "fingerprint": "b8bfbe301c023cf92effc369bfc24a954d5d762ead13f1f593b754606966215c",
+    "label_distribution": {
+      "financial": 7,
+      "internal": 35,
+      "personal": 11,
+      "public": 5,
+      "unknown": 5
+    },
+    "rows_total": 132
+  },
+  "deterministic": {
+    "consistent_across_repeats": true,
+    "latency": {
+      "max_ms": 140.595,
+      "mean_ms": 44.357,
+      "median_ms": 31.124,
+      "min_ms": 21.449,
+      "n": 13
+    },
+    "latency_scope": "One workflow run on one synthetic dataset (profile, detectors, policy).",
+    "metrics": {
+      "by_tag": {
+        "known_limitation": {
+          "f1": 0.0,
+          "fn": 4,
+          "fp": 1,
+          "precision": 0.0,
+          "precision_ci95": [
+            0.0,
+            0.7934506856227626
+          ],
+          "predicted_positive": 1,
+          "recall": 0.0,
+          "recall_ci95": [
+            0.0,
+            0.4898908364545973
+          ],
+          "support": 4,
+          "tn": 21,
+          "tp": 0,
+          "units": 26
+        },
+        "near_miss": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "precision_ci95": [
+            0.20654931437723745,
+            1.0
+          ],
+          "predicted_positive": 1,
+          "recall": 1.0,
+          "recall_ci95": [
+            0.20654931437723745,
+            1.0
+          ],
+          "support": 1,
+          "tn": 73,
+          "tp": 1,
+          "units": 74
+        },
+        "standard": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "precision_ci95": [
+            0.7961166989641515,
+            1.0
+          ],
+          "predicted_positive": 15,
+          "recall": 1.0,
+          "recall_ci95": [
+            0.7961166989641515,
+            1.0
+          ],
+          "support": 15,
+          "tn": 213,
+          "tp": 15,
+          "units": 228
+        }
+      },
+      "errors": [
+        {
+          "case": "known_limitations",
+          "category": "potential_phone",
+          "column": "intl_phone",
+          "kind": "false_negative",
+          "tag": "known_limitation"
+        },
+        {
+          "case": "known_limitations",
+          "category": "potential_phone",
+          "column": "numeric_phone",
+          "kind": "false_negative",
+          "tag": "known_limitation"
+        },
+        {
+          "case": "known_limitations",
+          "category": "potential_phone",
+          "column": "ten_digit_id",
+          "kind": "false_positive",
+          "tag": "known_limitation"
+        },
+        {
+          "case": "known_limitations",
+          "category": "missing_values",
+          "column": "placeholder_missing",
+          "kind": "false_negative",
+          "tag": "known_limitation"
+        },
+        {
+          "case": "known_limitations",
+          "category": "missing_values",
+          "column": "blank_strings",
+          "kind": "false_negative",
+          "tag": "known_limitation"
+        }
+      ],
+      "false_negatives": 4,
+      "false_positives": 1,
+      "macro": {
+        "classes": [
+          "missing_values",
+          "potential_email",
+          "potential_phone",
+          "numeric_rule_violation",
+          "invalid_date",
+          "duplicate_rows"
+        ],
+        "f1": 0.9027777777777778,
+        "precision": 0.9583333333333334,
+        "recall": 0.8666666666666667,
+        "zero_division_classes": []
+      },
+      "micro": {
+        "f1": 0.8648648648648649,
+        "fn": 4,
+        "fp": 1,
+        "precision": 0.9411764705882353,
+        "precision_ci95": [
+          0.7301796936242461,
+          0.9895395990150025
+        ],
+        "predicted_positive": 17,
+        "recall": 0.8,
+        "recall_ci95": [
+          0.5839825677481064,
+          0.919342337420202
+        ],
+        "support": 20,
+        "tn": 307,
+        "tp": 16,
+        "units": 328
+      },
+      "per_category": {
+        "duplicate_rows": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "precision_ci95": [
+            0.34238022750665303,
+            1.0
+          ],
+          "predicted_positive": 2,
+          "recall": 1.0,
+          "recall_ci95": [
+            0.34238022750665303,
+            1.0
+          ],
+          "support": 2,
+          "tn": 11,
+          "tp": 2,
+          "units": 13
+        },
+        "invalid_date": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "precision_ci95": [
+            0.34238022750665303,
+            1.0
+          ],
+          "predicted_positive": 2,
+          "recall": 1.0,
+          "recall_ci95": [
+            0.34238022750665303,
+            1.0
+          ],
+          "support": 2,
+          "tn": 61,
+          "tp": 2,
+          "units": 63
+        },
+        "missing_values": {
+          "f1": 0.75,
+          "fn": 2,
+          "fp": 0,
+          "precision": 1.0,
+          "precision_ci95": [
+            0.4385029682449546,
+            1.0
+          ],
+          "predicted_positive": 3,
+          "recall": 0.6,
+          "recall_ci95": [
+            0.2307242812760128,
+            0.882379225767352
+          ],
+          "support": 5,
+          "tn": 58,
+          "tp": 3,
+          "units": 63
+        },
+        "numeric_rule_violation": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "precision_ci95": [
+            0.34238022750665303,
+            1.0
+          ],
+          "predicted_positive": 2,
+          "recall": 1.0,
+          "recall_ci95": [
+            0.34238022750665303,
+            1.0
+          ],
+          "support": 2,
+          "tn": 61,
+          "tp": 2,
+          "units": 63
+        },
+        "potential_email": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "precision_ci95": [
+            0.5101091635454027,
+            1.0
+          ],
+          "predicted_positive": 4,
+          "recall": 1.0,
+          "recall_ci95": [
+            0.5101091635454027,
+            1.0
+          ],
+          "support": 4,
+          "tn": 59,
+          "tp": 4,
+          "units": 63
+        },
+        "potential_phone": {
+          "f1": 0.6666666666666666,
+          "fn": 2,
+          "fp": 1,
+          "precision": 0.75,
+          "precision_ci95": [
+            0.30064184258240184,
+            0.9544127391902995
+          ],
+          "predicted_positive": 4,
+          "recall": 0.6,
+          "recall_ci95": [
+            0.2307242812760128,
+            0.882379225767352
+          ],
+          "support": 5,
+          "tn": 57,
+          "tp": 3,
+          "units": 63
+        }
+      },
+      "positives": 20,
+      "units": 328,
+      "unmatched_findings": []
+    },
+    "repeats": 1,
+    "workflow_statuses": {
+      "completed": 13
+    }
+  },
+  "fingerprints": {
+    "dataset": "b8bfbe301c023cf92effc369bfc24a954d5d762ead13f1f593b754606966215c",
+    "results": "67077ce4bc4e8fd3324cbf163f6be21aeb698feb21ae84c85117c50c63bd8d2e",
+    "scope": "dataset + deterministic metrics + mock metrics; excludes timings, timestamps, genuine LLM output and human review data"
+  },
+  "how_to_read": [
+    "Support: how many actual positives (or examples of that class) exist in the fixed dataset. Small supports make every rate unstable.",
+    "TP / FP / FN / TN: true positive = flagged and should be; false positive = flagged but should not be; false negative = should be flagged but was missed; true negative = correctly left alone.",
+    "Precision = TP / (TP + FP): of everything flagged, the share that was right. n/a means nothing was flagged.",
+    "Recall = TP / (TP + FN): of everything that should be flagged, the share that was found. n/a means there were no actual positives.",
+    "F1 = 2*TP / (2*TP + FP + FN): one number balancing precision and recall. n/a when either is undefined.",
+    "95% interval (Wilson): the range of true rates consistent with the observed counts. A wide interval means little evidence either way.",
+    "Micro average: pools all counts before computing the rate, so large classes dominate. Macro average: the plain mean over classes that have examples, so small classes count equally; a class with examples that is never predicted counts as 0.",
+    "Confusion matrix: rows are the true class, columns the predicted class. The diagonal is correct; the no_prediction column means no valid answer was produced (failure or not attempted).",
+    "Accuracy and the majority baseline: accuracy is the share of correct columns; the baseline is what always answering the largest class would score. Accuracy only means something when it clearly beats the baseline.",
+    "Latency: wall-clock milliseconds for one workflow run on one synthetic dataset, after a discarded warm-up pass. It is machine dependent and not part of the reproducible results.",
+    "Provider calls: number of classify invocations. The Gemini adapter may retry internally, so HTTP requests can exceed this number, and per-call latency includes any retries.",
+    "Cost and tokens: reported as not measured; nothing is estimated.",
+    "Reviewer acceptance rate: the share of reviewed findings whose latest persisted decision is 'approved'. It counts what reviewers did, not what is correct, covers only flagged items (so it cannot see misses) and is not comparable to recall.",
+    "Fingerprints: the dataset fingerprint changes when any value or label changes. The results fingerprint covers the dataset, the deterministic metrics and the mock metrics; two runs on the same code and dataset must print the same one."
+  ],
+  "human_review": {
+    "available": false,
+    "reason": "Not collected.",
+    "reproducible": false
+  },
+  "limitations": [
+    "Small sample: 63 labeled columns in 13 synthetic cases, plus 13 dataset-level duplicate checks. One more or one fewer correct answer moves the percentages a lot; the 95% intervals show how wide the uncertainty is.",
+    "Classes with fewer than 10 labeled columns: public (5), financial (7), unknown (5). Their per-class precision and recall are especially unstable.",
+    "Detection categories with fewer than 5 positive examples: potential_email (4), numeric_rule_violation (2), invalid_date (2), duplicate_rows (2). Their recall rests on a handful of cases.",
+    "Class imbalance: 'internal' is the largest class (55.6% of columns), so a classifier that always answered 'internal' would score 55.6% accuracy. Use per-class recall and the macro averages, not accuracy alone.",
+    "Detection is also imbalanced: 20 of 328 (column or dataset, category) units are positives and the rest are negatives. Accuracy would look high even for a detector that flagged nothing, so this report does not use it.",
+    "The labels, the detectors and the mock provider were written by the same author: there is no independent annotator, no inter-annotator agreement, and the dataset was not held out from development. The results describe how the implementation behaves on cases its author could anticipate; they do not estimate real-world performance.",
+    "The data is synthetic: values, formats and the class mix are invented and do not represent any real organisation.",
+    "Mock results measure a keyword matcher against these labels. They are not evidence about a language model.",
+    "Genuine LLM results, when present, come from a single run of one model on this small dataset with no temperature set, so repeating the run may give different answers.",
+    "Timings are wall-clock measurements on one machine and vary between runs.",
+    "Human review counts come from the local database, may include test decisions, and are not ground truth."
+  ],
+  "llm": {
+    "answered_only": {
+      "accuracy": 0.8333333333333334,
+      "accuracy_ci95": [
+        0.7196838683638547,
+        0.9068682302080855
+      ],
+      "correct": 50,
+      "labels": [
+        "public",
+        "internal",
+        "personal",
+        "financial",
+        "unknown"
+      ],
+      "macro": {
+        "classes": [
+          "public",
+          "internal",
+          "personal",
+          "financial",
+          "unknown"
+        ],
+        "f1": 0.8261904761904763,
+        "precision": 0.7962759462759463,
+        "recall": 0.8970588235294118,
+        "zero_division_classes": []
+      },
+      "majority_baseline_accuracy": 0.5666666666666667,
+      "majority_class": "internal",
+      "matrix": {
+        "financial": {
+          "financial": 7,
+          "internal": 0,
+          "no_prediction": 0,
+          "personal": 0,
+          "public": 0,
+          "unknown": 0
+        },
+        "internal": {
+          "financial": 0,
+          "internal": 25,
+          "no_prediction": 0,
+          "personal": 4,
+          "public": 1,
+          "unknown": 4
+        },
+        "personal": {
+          "financial": 0,
+          "internal": 0,
+          "no_prediction": 0,
+          "personal": 10,
+          "public": 0,
+          "unknown": 0
+        },
+        "public": {
+          "financial": 0,
+          "internal": 1,
+          "no_prediction": 0,
+          "personal": 0,
+          "public": 3,
+          "unknown": 0
+        },
+        "unknown": {
+          "financial": 0,
+          "internal": 0,
+          "no_prediction": 0,
+          "personal": 0,
+          "public": 0,
+          "unknown": 5
+        }
+      },
+      "micro": {
+        "f1": 0.8333333333333334,
+        "fn": 10,
+        "fp": 10,
+        "precision": 0.8333333333333334,
+        "precision_ci95": [
+          0.7196838683638547,
+          0.9068682302080855
+        ],
+        "predicted_positive": 60,
+        "recall": 0.8333333333333334,
+        "recall_ci95": [
+          0.7196838683638547,
+          0.9068682302080855
+        ],
+        "support": 60,
+        "tn": 230,
+        "tp": 50,
+        "units": 300
+      },
+      "n": 60,
+      "no_prediction_count": 0,
+      "per_class": {
+        "financial": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "precision_ci95": [
+            0.6456695649333126,
+            1.0
+          ],
+          "predicted_positive": 7,
+          "recall": 1.0,
+          "recall_ci95": [
+            0.6456695649333126,
+            1.0
+          ],
+          "support": 7,
+          "tn": 53,
+          "tp": 7,
+          "units": 60
+        },
+        "internal": {
+          "f1": 0.8333333333333334,
+          "fn": 9,
+          "fp": 1,
+          "precision": 0.9615384615384616,
+          "precision_ci95": [
+            0.8110722109696524,
+            0.9931780150064564
+          ],
+          "predicted_positive": 26,
+          "recall": 0.7352941176470589,
+          "recall_ci95": [
+            0.5688285871705534,
+            0.8539880932278825
+          ],
+          "support": 34,
+          "tn": 25,
+          "tp": 25,
+          "units": 60
+        },
+        "personal": {
+          "f1": 0.8333333333333334,
+          "fn": 0,
+          "fp": 4,
+          "precision": 0.7142857142857143,
+          "precision_ci95": [
+            0.4535091567010681,
+            0.8827862135542308
+          ],
+          "predicted_positive": 14,
+          "recall": 1.0,
+          "recall_ci95": [
+            0.7224672001371107,
+            0.9999999999999999
+          ],
+          "support": 10,
+          "tn": 46,
+          "tp": 10,
+          "units": 60
+        },
+        "public": {
+          "f1": 0.75,
+          "fn": 1,
+          "fp": 1,
+          "precision": 0.75,
+          "precision_ci95": [
+            0.30064184258240184,
+            0.9544127391902995
+          ],
+          "predicted_positive": 4,
+          "recall": 0.75,
+          "recall_ci95": [
+            0.30064184258240184,
+            0.9544127391902995
+          ],
+          "support": 4,
+          "tn": 55,
+          "tp": 3,
+          "units": 60
+        },
+        "unknown": {
+          "f1": 0.7142857142857143,
+          "fn": 0,
+          "fp": 4,
+          "precision": 0.5555555555555556,
+          "precision_ci95": [
+            0.26665129349549305,
+            0.8112214789023355
+          ],
+          "predicted_positive": 9,
+          "recall": 1.0,
+          "recall_ci95": [
+            0.5655175352168251,
+            1.0
+          ],
+          "support": 5,
+          "tn": 51,
+          "tp": 5,
+          "units": 60
+        }
+      },
+      "predicted_columns": [
+        "public",
+        "internal",
+        "personal",
+        "financial",
+        "unknown",
+        "no_prediction"
+      ]
+    },
+    "consistent_across_repeats": true,
+    "cost": {
+      "measured": false,
+      "reason": "Cost is not measured. The provider adapter does not record token usage and no price is configured here, so no figure is estimated."
+    },
+    "coverage": {
+      "answered": 60,
+      "answered_share": 0.9524,
+      "columns": 63,
+      "unanswered": 3
+    },
+    "guard": {
+      "calls_sent": 63,
+      "calls_skipped_after_stop": 0,
+      "seconds_waited": 372.0,
+      "stopped_early": false
+    },
+    "kind": "genuine LLM provider output (unverified; a single non-reproducible run)",
+    "metrics": {
+      "accuracy": 0.7936507936507936,
+      "accuracy_ci95": [
+        0.6783018567138667,
+        0.8752468038450617
+      ],
+      "correct": 50,
+      "labels": [
+        "public",
+        "internal",
+        "personal",
+        "financial",
+        "unknown"
+      ],
+      "macro": {
+        "classes": [
+          "public",
+          "internal",
+          "personal",
+          "financial",
+          "unknown"
+        ],
+        "f1": 0.8001249024199844,
+        "precision": 0.7962759462759463,
+        "recall": 0.8446753246753247,
+        "zero_division_classes": []
+      },
+      "majority_baseline_accuracy": 0.5555555555555556,
+      "majority_class": "internal",
+      "matrix": {
+        "financial": {
+          "financial": 7,
+          "internal": 0,
+          "no_prediction": 0,
+          "personal": 0,
+          "public": 0,
+          "unknown": 0
+        },
+        "internal": {
+          "financial": 0,
+          "internal": 25,
+          "no_prediction": 1,
+          "personal": 4,
+          "public": 1,
+          "unknown": 4
+        },
+        "personal": {
+          "financial": 0,
+          "internal": 0,
+          "no_prediction": 1,
+          "personal": 10,
+          "public": 0,
+          "unknown": 0
+        },
+        "public": {
+          "financial": 0,
+          "internal": 1,
+          "no_prediction": 1,
+          "personal": 0,
+          "public": 3,
+          "unknown": 0
+        },
+        "unknown": {
+          "financial": 0,
+          "internal": 0,
+          "no_prediction": 0,
+          "personal": 0,
+          "public": 0,
+          "unknown": 5
+        }
+      },
+      "micro": {
+        "f1": 0.8130081300813008,
+        "fn": 13,
+        "fp": 10,
+        "precision": 0.8333333333333334,
+        "precision_ci95": [
+          0.7196838683638547,
+          0.9068682302080855
+        ],
+        "predicted_positive": 60,
+        "recall": 0.7936507936507936,
+        "recall_ci95": [
+          0.6783018567138667,
+          0.8752468038450617
+        ],
+        "support": 63,
+        "tn": 242,
+        "tp": 50,
+        "units": 315
+      },
+      "n": 63,
+      "no_prediction_count": 3,
+      "per_class": {
+        "financial": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "precision_ci95": [
+            0.6456695649333126,
+            1.0
+          ],
+          "predicted_positive": 7,
+          "recall": 1.0,
+          "recall_ci95": [
+            0.6456695649333126,
+            1.0
+          ],
+          "support": 7,
+          "tn": 56,
+          "tp": 7,
+          "units": 63
+        },
+        "internal": {
+          "f1": 0.819672131147541,
+          "fn": 10,
+          "fp": 1,
+          "precision": 0.9615384615384616,
+          "precision_ci95": [
+            0.8110722109696524,
+            0.9931780150064564
+          ],
+          "predicted_positive": 26,
+          "recall": 0.7142857142857143,
+          "recall_ci95": [
+            0.5494506513681738,
+            0.836734637635653
+          ],
+          "support": 35,
+          "tn": 27,
+          "tp": 25,
+          "units": 63
+        },
+        "personal": {
+          "f1": 0.8,
+          "fn": 1,
+          "fp": 4,
+          "precision": 0.7142857142857143,
+          "precision_ci95": [
+            0.4535091567010681,
+            0.8827862135542308
+          ],
+          "predicted_positive": 14,
+          "recall": 0.9090909090909091,
+          "recall_ci95": [
+            0.6226415635484043,
+            0.9837678271141151
+          ],
+          "support": 11,
+          "tn": 48,
+          "tp": 10,
+          "units": 63
+        },
+        "public": {
+          "f1": 0.6666666666666666,
+          "fn": 2,
+          "fp": 1,
+          "precision": 0.75,
+          "precision_ci95": [
+            0.30064184258240184,
+            0.9544127391902995
+          ],
+          "predicted_positive": 4,
+          "recall": 0.6,
+          "recall_ci95": [
+            0.2307242812760128,
+            0.882379225767352
+          ],
+          "support": 5,
+          "tn": 57,
+          "tp": 3,
+          "units": 63
+        },
+        "unknown": {
+          "f1": 0.7142857142857143,
+          "fn": 0,
+          "fp": 4,
+          "precision": 0.5555555555555556,
+          "precision_ci95": [
+            0.26665129349549305,
+            0.8112214789023355
+          ],
+          "predicted_positive": 9,
+          "recall": 1.0,
+          "recall_ci95": [
+            0.5655175352168251,
+            1.0
+          ],
+          "support": 5,
+          "tn": 54,
+          "tp": 5,
+          "units": 63
+        }
+      },
+      "predicted_columns": [
+        "public",
+        "internal",
+        "personal",
+        "financial",
+        "unknown",
+        "no_prediction"
+      ]
+    },
+    "misclassified": [
+      {
+        "actual": "internal",
+        "case": "customers_clean",
+        "column": "customer_id",
+        "predicted": "personal"
+      },
+      {
+        "actual": "public",
+        "case": "inventory_clean",
+        "column": "store_hours",
+        "predicted": "no_prediction"
+      },
+      {
+        "actual": "internal",
+        "case": "missing_values",
+        "column": "delivery_notes",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "personal",
+        "case": "pii_patterns",
+        "column": "mobile_phone",
+        "predicted": "no_prediction"
+      },
+      {
+        "actual": "internal",
+        "case": "near_miss_patterns",
+        "column": "release_version",
+        "predicted": "public"
+      },
+      {
+        "actual": "internal",
+        "case": "near_miss_patterns",
+        "column": "meeting_note",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "internal",
+        "case": "numeric_and_date_rules",
+        "column": "shipment_id",
+        "predicted": "no_prediction"
+      },
+      {
+        "actual": "internal",
+        "case": "duplicates_present",
+        "column": "customer_ref",
+        "predicted": "personal"
+      },
+      {
+        "actual": "internal",
+        "case": "duplicates_absent",
+        "column": "customer_ref",
+        "predicted": "personal"
+      },
+      {
+        "actual": "public",
+        "case": "public_contacts",
+        "column": "branch_name",
+        "predicted": "internal"
+      },
+      {
+        "actual": "internal",
+        "case": "known_limitations",
+        "column": "ten_digit_id",
+        "predicted": "personal"
+      },
+      {
+        "actual": "internal",
+        "case": "known_limitations",
+        "column": "placeholder_missing",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "internal",
+        "case": "known_limitations",
+        "column": "blank_strings",
+        "predicted": "unknown"
+      }
+    ],
+    "outcomes": {
+      "ok": 60,
+      "provider_error": 1,
+      "provider_unavailable": 2
+    },
+    "provider": "gemini:gemini-3.5-flash-lite",
+    "provider_calls": {
+      "count": 63,
+      "failures": 3,
+      "latency": {
+        "max_ms": 40693.034,
+        "mean_ms": 7762.018,
+        "median_ms": 7561.668,
+        "min_ms": 1180.311,
+        "n": 63
+      },
+      "note": "Calls that actually reached the provider (calls rejected after the run-wide stop are not counted; see the pacing line). Per-call latency excludes the pauses; the adapter may retry internally, so HTTP requests can exceed this number."
+    },
+    "ran": true,
+    "repeats": 1,
+    "reproducible": false,
+    "run_config": {
+      "pause_seconds": 6.0,
+      "stop_after_consecutive_failures": 8,
+      "workflow_max_consecutive_failures": 3
+    },
+    "token_usage": {
+      "measured": false,
+      "reason": "Token usage is not measured: the adapter does not expose usage metadata."
+    },
+    "workflow_latency": {
+      "max_ms": 122538.973,
+      "mean_ms": 66320.402,
+      "median_ms": 61708.942,
+      "min_ms": 29766.134,
+      "n": 13
+    }
+  },
+  "mock": {
+    "consistent_across_repeats": true,
+    "kind": "MOCK: a rule-based placeholder, not an LLM",
+    "metrics": {
+      "accuracy": 0.6984126984126984,
+      "accuracy_ci95": [
+        0.5763962768644041,
+        0.7976230883781149
+      ],
+      "correct": 44,
+      "labels": [
+        "public",
+        "internal",
+        "personal",
+        "financial",
+        "unknown"
+      ],
+      "macro": {
+        "classes": [
+          "public",
+          "internal",
+          "personal",
+          "financial",
+          "unknown"
+        ],
+        "f1": 0.6450675761020588,
+        "precision": 0.7076190476190476,
+        "recall": 0.7168831168831169,
+        "zero_division_classes": []
+      },
+      "majority_baseline_accuracy": 0.5555555555555556,
+      "majority_class": "internal",
+      "matrix": {
+        "financial": {
+          "financial": 7,
+          "internal": 0,
+          "no_prediction": 0,
+          "personal": 0,
+          "public": 0,
+          "unknown": 0
+        },
+        "internal": {
+          "financial": 0,
+          "internal": 23,
+          "no_prediction": 0,
+          "personal": 1,
+          "public": 1,
+          "unknown": 10
+        },
+        "personal": {
+          "financial": 0,
+          "internal": 0,
+          "no_prediction": 0,
+          "personal": 8,
+          "public": 0,
+          "unknown": 3
+        },
+        "public": {
+          "financial": 0,
+          "internal": 0,
+          "no_prediction": 0,
+          "personal": 1,
+          "public": 1,
+          "unknown": 3
+        },
+        "unknown": {
+          "financial": 0,
+          "internal": 0,
+          "no_prediction": 0,
+          "personal": 0,
+          "public": 0,
+          "unknown": 5
+        }
+      },
+      "micro": {
+        "f1": 0.6984126984126984,
+        "fn": 19,
+        "fp": 19,
+        "precision": 0.6984126984126984,
+        "precision_ci95": [
+          0.5763962768644041,
+          0.7976230883781149
+        ],
+        "predicted_positive": 63,
+        "recall": 0.6984126984126984,
+        "recall_ci95": [
+          0.5763962768644041,
+          0.7976230883781149
+        ],
+        "support": 63,
+        "tn": 233,
+        "tp": 44,
+        "units": 315
+      },
+      "n": 63,
+      "no_prediction_count": 0,
+      "per_class": {
+        "financial": {
+          "f1": 1.0,
+          "fn": 0,
+          "fp": 0,
+          "precision": 1.0,
+          "precision_ci95": [
+            0.6456695649333126,
+            1.0
+          ],
+          "predicted_positive": 7,
+          "recall": 1.0,
+          "recall_ci95": [
+            0.6456695649333126,
+            1.0
+          ],
+          "support": 7,
+          "tn": 56,
+          "tp": 7,
+          "units": 63
+        },
+        "internal": {
+          "f1": 0.7931034482758621,
+          "fn": 12,
+          "fp": 0,
+          "precision": 1.0,
+          "precision_ci95": [
+            0.8568833815495731,
+            1.0
+          ],
+          "predicted_positive": 23,
+          "recall": 0.6571428571428571,
+          "recall_ci95": [
+            0.4915194951399626,
+            0.7916830501295105
+          ],
+          "support": 35,
+          "tn": 28,
+          "tp": 23,
+          "units": 63
+        },
+        "personal": {
+          "f1": 0.7619047619047619,
+          "fn": 3,
+          "fp": 2,
+          "precision": 0.8,
+          "precision_ci95": [
+            0.49016247153664183,
+            0.9433178485456247
+          ],
+          "predicted_positive": 10,
+          "recall": 0.7272727272727273,
+          "recall_ci95": [
+            0.43435469882387084,
+            0.902539407099751
+          ],
+          "support": 11,
+          "tn": 50,
+          "tp": 8,
+          "units": 63
+        },
+        "public": {
+          "f1": 0.2857142857142857,
+          "fn": 4,
+          "fp": 1,
+          "precision": 0.5,
+          "precision_ci95": [
+            0.09453120573423074,
+            0.9054687942657693
+          ],
+          "predicted_positive": 2,
+          "recall": 0.2,
+          "recall_ci95": [
+            0.03622410863243014,
+            0.6244653702374747
+          ],
+          "support": 5,
+          "tn": 57,
+          "tp": 1,
+          "units": 63
+        },
+        "unknown": {
+          "f1": 0.38461538461538464,
+          "fn": 0,
+          "fp": 16,
+          "precision": 0.23809523809523808,
+          "precision_ci95": [
+            0.10628013022636468,
+            0.4509117368295075
+          ],
+          "predicted_positive": 21,
+          "recall": 1.0,
+          "recall_ci95": [
+            0.5655175352168251,
+            1.0
+          ],
+          "support": 5,
+          "tn": 42,
+          "tp": 5,
+          "units": 63
+        }
+      },
+      "predicted_columns": [
+        "public",
+        "internal",
+        "personal",
+        "financial",
+        "unknown",
+        "no_prediction"
+      ]
+    },
+    "misclassified": [
+      {
+        "actual": "personal",
+        "case": "customers_clean",
+        "column": "full_name",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "internal",
+        "case": "inventory_clean",
+        "column": "sku",
+        "predicted": "public"
+      },
+      {
+        "actual": "public",
+        "case": "inventory_clean",
+        "column": "public_url",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "public",
+        "case": "inventory_clean",
+        "column": "store_hours",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "internal",
+        "case": "missing_values",
+        "column": "carrier_name",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "internal",
+        "case": "missing_values",
+        "column": "tracking_code",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "personal",
+        "case": "pii_patterns",
+        "column": "employee_name",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "internal",
+        "case": "pii_patterns",
+        "column": "priority",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "personal",
+        "case": "near_miss_patterns",
+        "column": "social_handle",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "internal",
+        "case": "near_miss_patterns",
+        "column": "release_version",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "internal",
+        "case": "near_miss_patterns",
+        "column": "build_timestamp",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "internal",
+        "case": "near_miss_patterns",
+        "column": "meeting_note",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "internal",
+        "case": "near_miss_patterns",
+        "column": "batch_reference",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "internal",
+        "case": "numeric_and_date_rules",
+        "column": "weight_kg",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "public",
+        "case": "public_contacts",
+        "column": "branch_name",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "public",
+        "case": "public_contacts",
+        "column": "public_hotline",
+        "predicted": "personal"
+      },
+      {
+        "actual": "internal",
+        "case": "known_limitations",
+        "column": "ten_digit_id",
+        "predicted": "personal"
+      },
+      {
+        "actual": "internal",
+        "case": "known_limitations",
+        "column": "placeholder_missing",
+        "predicted": "unknown"
+      },
+      {
+        "actual": "internal",
+        "case": "known_limitations",
+        "column": "blank_strings",
+        "predicted": "unknown"
+      }
+    ],
+    "outcomes": {
+      "ok": 63
+    },
+    "provider": "mock-rules-v1",
+    "provider_calls": {
+      "count": 63,
+      "failures": 0,
+      "latency": {
+        "max_ms": 0.06,
+        "mean_ms": 0.016,
+        "median_ms": 0.013,
+        "min_ms": 0.009,
+        "n": 63
+      },
+      "note": "Counts classify() invocations in the scoring pass. The adapter may retry internally, so HTTP requests can exceed this number; per-call latency includes any retries."
+    },
+    "ran": true,
+    "repeats": 1,
+    "workflow_latency": {
+      "max_ms": 38.797,
+      "mean_ms": 29.684,
+      "median_ms": 31.486,
+      "min_ms": 22.321,
+      "n": 13
+    }
+  },
+  "report_version": 1,
+  "run": {
+    "cases_selected": [
+      "customers_clean",
+      "inventory_clean",
+      "missing_values",
+      "pii_patterns",
+      "near_miss_patterns",
+      "numeric_and_date_rules",
+      "unconfigured_rules",
+      "duplicates_present",
+      "duplicates_absent",
+      "duplicates_repeated",
+      "public_contacts",
+      "opaque_columns",
+      "known_limitations"
+    ],
+    "command": "python -m app.evaluation.harness",
+    "generated_at_utc": "2026-11-19T14:21:11.916512+00:00",
+    "is_subset": false,
+    "pandas": "3.0.6",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "python": "3.14.2",
+    "repeats": 1,
+    "warmup_pass": false
+  }
+}

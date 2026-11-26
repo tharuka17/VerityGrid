@@ -1,0 +1,20 @@
+order_id,customer_id,order_date,requested_delivery_date,order_status,order_total,line_count,delivery_notes
+O1001,C001,2026-09-01,2026-09-03,delivered,1842.50,12,
+O1002,C002,2026-09-01,2026-09-02,delivered,615.20,5,Leave at back door
+O1003,C003,2026-09-02,2026-09-04,delivered,3920.75,28,Call 503-555-0143 on arrival
+O1004,C005,2026-09-02,2026-09-03,delivered,288.00,3,
+O1005,C007,2026-09-03,2026-09-05,cancelled,0,0,Customer inactive
+O1006,C010,2026-09-03,2026-09-06,delivered,1210.40,9,
+O1007,C004,2026-09-04,2026-09-05,delivered,745.10,6,Billing questions: ap@riverbend.example.com
+O1008,C012,2026-09-04,2026-09-07,in_transit,2105.00,14,Refrigerated truck required
+O1009,C013,2026-09-05,2026-09-04,delivered,530.90,4,
+O1010,C999,2026-09-05,2026-09-08,delivered,980.00,7,
+O1011,C014,2026-09-06,2026-09-08,delivered,4875.60,31,
+O1012,,2026-09-06,2026-09-09,pending,150.25,2,
+O1013,C016,2026-09-07,2026-09-10,delivered,-320.00,5,Credit adjustment?
+O1014,C019,2026-09-07,2026-09-09,Delivered,412.35,3,
+O1015,C020,2026-09-08,2026-09-10,pending,1675.80,11,
+O1015,C020,2026-09-08,2026-09-10,pending,1675.80,11,
+O1016,C006,2026-09-08,2026-09-11,pending,,8,
+O1017,C015,2026-09-09,2026-09-12,pending,899.99,7,
+O1018,C018,2026-09-09,2026-09-11,pending,2310.00,19,Dock hours 6am-2pm
