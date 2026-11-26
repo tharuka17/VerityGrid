@@ -127,3 +127,17 @@ def test_the_documents_describe_automatic_deploys() -> None:
         assert "automatically" in read(name).lower(), name
     for name in DOCS:
         assert "`autoDeploy` is off" not in read(name), name
+        
+def test_the_status_file_is_current() -> None:
+    text = read("IMPLEMENTATION_STATUS.md")
+
+    for stale in ("Nothing has been deployed", "`autoDeploy: false`", "not been deployed", "**Not started.** Instructions"):
+        assert stale not in text, stale
+    for fact in ("014506f", "2b9a025", "74b2af3", "af688be", "autoDeployTrigger", "veritygrid-ui.onrender.com"):
+        assert fact in text, fact
+
+
+def test_the_deployment_guide_records_the_auto_deploy_result() -> None:
+    guide = read("docs/DEPLOYMENT.md")
+
+    assert "af688be" in guide and "New commit via Auto-Deploy" in guide
