@@ -1,3 +1,5 @@
+# Render deploys this service automatically when a push changes a file in its render.yaml buildFilter.
+
 # VerityGrid dashboard (Streamlit). A pure HTTP client: it needs only the ui/ package and the API's address.
 # Build:  docker build -f Dockerfile.ui -t veritygrid-ui .
 # It contains no secrets and no backend code.
